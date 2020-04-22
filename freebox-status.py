@@ -19,7 +19,7 @@ fbx = Freepybox()
 # and default port 80
 # Be ready to authorize the application on the Freebox if you use this
 # example for the first time
-fbx.open('mafreebox.freebox.fr', 443)
+fbx.open('192.168.0.254', 443)
 
 print('______________________________________________________________________');
 print('');
