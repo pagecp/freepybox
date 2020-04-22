@@ -7,6 +7,7 @@ import logging
 import os
 import socket
 from urllib.parse import urljoin
+from urllib3 import disable_warnings
 import freepybox
 from freepybox.exceptions import *
 from freepybox.access import Access
@@ -24,6 +25,7 @@ from freepybox.api.phone import Phone
 from freepybox.api.airmedia import Airmedia
 from freepybox.api.freeplugs import Freeplugs
 
+disable_warnings()
 
 # Token file default location
 token_filename = 'app_auth'
@@ -153,7 +155,7 @@ class Freepybox:
             denied 	    the user denied the authorization request
         '''
         url = urljoin(base_url, 'login/authorize/{0}'.format(track_id))
-        r = self.session.get(url, timeout=timeout)
+        r = self.session.get(url, timeout=timeout, verify=False)
         resp = r.json()
         return resp['result']['status']
 
@@ -166,7 +168,7 @@ class Freepybox:
         # Get authentification token
         url = urljoin(base_url, 'login/authorize/')
         data = json.dumps(app_desc)
-        r = self.session.post(url, data, timeout=timeout)
+        r = self.session.post(url, data, timeout=timeout, verify=False)
         resp = r.json()
 
         # raise exception if resp.success != True
@@ -220,7 +222,7 @@ class Freepybox:
 
         url = urljoin(base_url, 'login/session/')
         data = json.dumps({'app_id': app_id, 'password': password})
-        r = self.session.post(url, data, timeout=timeout)
+        r = self.session.post(url, data, timeout=timeout, verify=False)
         resp = r.json()
 
         # raise exception if resp.success != True
@@ -238,7 +240,7 @@ class Freepybox:
         Return challenge from freebox API
         '''
         url = urljoin(base_url, 'login')
-        r = self.session.get(url, timeout=timeout)
+        r = self.session.get(url, timeout=timeout, verify=False)
         resp = r.json()
 
         # raise exception if resp.success != True
