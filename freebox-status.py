@@ -313,11 +313,12 @@ while index < len(fbx_ports):
 print('');
 print(' Interfaces réseau :');
 print(' -------------------');
-print('');
-print('  Freeplug           ID                 Lien  Role     Débit entrant            Débit sortant');
-print('  --                 --                 --    --       --                       --');
-fp_idx = 0
-while fp_idx < len(fbx_freeplugs):
+if (fbx_freeplugs != None):
+  print('');
+  print('  Freeplug           ID                 Lien  Role     Débit entrant            Débit sortant');
+  print('  --                 --                 --    --       --                       --');
+  fp_idx = 0
+  while fp_idx < len(fbx_freeplugs):
     mainid = fbx_freeplugs[fp_idx]['id']
     index = 0
     if 'members' in fbx_freeplugs[fp_idx]:
@@ -372,7 +373,8 @@ print('  {0:21.21s}  {1:13.13s}  {2}  {3}'.format('WAN', '', rx_str.ljust(23," "
 index = 0
 fp_idx = 0
 mac_fp_list = []
-while fp_idx < len(fbx_freeplugs):
+if (fbx_freeplugs != None):
+  while fp_idx < len(fbx_freeplugs):
     if 'members' in fbx_freeplugs[fp_idx]:
         maclist = fbx_freeplugs[fp_idx]['members'][:][:]
         mac_fp_list = [ (d['id']) for d in maclist]
