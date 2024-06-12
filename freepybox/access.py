@@ -16,7 +16,7 @@ class Access:
         Send get request and return results
         '''
         url = urljoin(self.base_url, end_url)
-        r = self.session.get(url, headers=self.header, timeout=self.timeout)
+        r = self.session.get(url, headers=self.header, timeout=self.timeout, verify=False)
         resp = r.json()
 
         if resp['success'] != True:
@@ -32,7 +32,7 @@ class Access:
         '''
         url = urljoin(self.base_url, end_url)
         data = json.dumps(payload) if payload is not None else None
-        r = self.session.post(url, headers=self.header, data=data, timeout=self.timeout)
+        r = self.session.post(url, headers=self.header, data=data, timeout=self.timeout, verify=False)
         resp = r.json()
 
         if resp['success'] != True:
@@ -48,7 +48,7 @@ class Access:
         '''
         url = urljoin(self.base_url, end_url)
         data = json.dumps(payload) if payload is not None else None
-        r = self.session.put(url, headers=self.header, data=data, timeout=self.timeout)
+        r = self.session.put(url, headers=self.header, data=data, timeout=self.timeout, verify=False)
         resp = r.json()
 
         if resp['success'] != True:
